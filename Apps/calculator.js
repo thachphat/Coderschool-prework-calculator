@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput
+  TextInput,
+  Button
 } from 'react-native';
 
 import SegmentedControlTab from 'react-native-segmented-control-tab';
@@ -55,6 +56,12 @@ export default class Cal extends Component {
   render() {
     return(
       <View>
+        <Button
+         tyle={{flex:1, margin:5, fontSize:20}}
+         title="Setting"
+         onPress={() => this.props.navigator.push({id:'Settings'})}
+        />
+
         <View>
           <Text>Tip Calculator</Text>
         </View>

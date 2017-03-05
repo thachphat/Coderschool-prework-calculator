@@ -9,15 +9,40 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Navigator,
+  Button
 } from 'react-native';
 
 import Calculator from './Apps/calculator.js'
+import Settings from './Apps/settings.js'
 
 export default class PreworkCalculator extends Component {
   render() {
     return (
-      <Calculator />
+      <Navigator
+        initialRoute={{id: 'CalculatorPage', title: 'Tip Calculator Page'}}
+        renderScene={(route, navigator) => {
+        switch (route.id) {
+          case 'CalculatorPage':
+            return <Calculator navigator={navigator} />
+            break;
+          case 'Settings':
+            return (
+              <View>
+                <Button
+                  style={{width:10, flex:0.1}}
+                  title="Go Back"
+                  onPress={() => navigator.pop({id:"CalculatorPage"})}
+                />
+                <Settings navigator={navigator} />
+              </View>
+            )
+            break;
+          default:
+        }
+      }}
+      />
     );
   }
 }
