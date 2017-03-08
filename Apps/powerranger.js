@@ -18,17 +18,8 @@ export default class PowerRanger extends Component {
       case 'CalculatorPage':
         return <Calculator navigator={navigator} />
         break;
-      case 'Settings':
-        return (
-          <View>
-            <Button
-              style={{width:10, flex:0.1}}
-              title="Go Back"
-              onPress={() => navigator.pop({id:"CalculatorPage"})}
-            />
-            <Settings navigator={navigator} />
-          </View>
-        )
+      case 'SettingPage':
+        return <Settings navigator={navigator} />
         break;
       default:
     }
