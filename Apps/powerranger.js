@@ -14,6 +14,13 @@ import Calculator from './calculator.js'
 import Settings from './settings.js'
 
 export default class PowerRanger extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sceneTransition: Navigator.SceneConfigs.FloatFromRight
+    };
+  }
+
   renderScene(route, navigator) {
     switch (route.id) {
       case 'CalculatorPage':
@@ -28,8 +35,56 @@ export default class PowerRanger extends Component {
     }
   }
 
+  async getSceneTransition(){
+    try{
+      let sceneTransitionValue = await AsyncStorage.getItem("SCENE_SELECTED");
+      // Store value to State
+      switch (sceneTransitionValue) {
+        case "FloatFromLeft":
+          this.setState({
+            sceneTransition : Navigator.SceneConfigs.FloatFromLeft
+          });
+          break;
+        case "FloatFromBottom":
+          this.setState({
+            sceneTransition : Navigator.SceneConfigs.FloatFromBottom
+          });
+          break;
+        case "FloatFromBottomAndroid":
+          this.setState({
+            sceneTransition : Navigator.SceneConfigs.FloatFromBottomAndroid
+          });
+          break;
+        case "SwipeFromLeft":
+          this.setState({
+            sceneTransition : Navigator.SceneConfigs.SwipeFromLeft
+          });
+          break;
+        case "HorizontalSwipeJump":
+          this.setState({
+            sceneTransition : Navigator.SceneConfigs.HorizontalSwipeJump
+          });
+          break;
+        case "HorizontalSwipeJumpFromRight":
+          this.setState({
+            sceneTransition : Navigator.SceneConfigs.HorizontalSwipeJumpFromRight
+          });
+          break;
+        default:
+          this.setState({
+            sceneTransition : Navigator.SceneConfigs.FloatFromRight
+          });
+          break;
+      }
+    }catch(error){
+      console.log("Hmm, something when wrong when get data..." + error);
+    }
+  }
+
   configureScene(route, routeStack) {
-    return Navigator.SceneConfigs.FloatFromRight;
+    this.getSceneTransition();
+    console.log(this.state.sceneTransition);
+    return this.state.sceneTransition;
   }
 
   render(){
@@ -43,7 +98,7 @@ export default class PowerRanger extends Component {
             if(route.id != 'CalculatorPage'){
               return (
                 <TouchableOpacity style={stylesCSS.tabbarHeadr} onPress={() => navigator.pop()}>
-                  <Text>Save</Text>
+                  <Text style={stylesCSS.headerFontSize}>Save</Text>
                 </TouchableOpacity>
               );
             }else{

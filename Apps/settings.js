@@ -24,7 +24,7 @@ export default class Settings extends Component {
     try {
       this.setSceneTransition(scene);
       this.setState({
-        scene: scene
+        sceneTransition: scene
       });
     } catch (error) {
       console.log("Oop!! Something went wrong !!!" + error);
@@ -46,6 +46,7 @@ export default class Settings extends Component {
     try{
       let sceneTransitionValue = await AsyncStorage.getItem("SCENE_SELECTED");
       // Store value to State
+      console.log(sceneTransitionValue);
       this.setState({
         sceneTransition : sceneTransitionValue
       });
