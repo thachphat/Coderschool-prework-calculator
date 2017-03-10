@@ -72,7 +72,6 @@ export default class PowerRanger extends Component {
         }}
         navigationBar={navigationBar}
         configureScene={this.configureScene.bind(this)}
-        style={{paddingTop:20}}
       />
     );
   }

@@ -55,7 +55,7 @@ export default class Cal extends Component {
 
   render() {
     return(
-      <View>
+      <View style={{marginTop:50}}>
         <View>
           <Text>Tip Calculator</Text>
         </View>
