@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Picker
+  Picker,
+  AsyncStorage
 } from 'react-native';
 
 export default class Settings extends Component {

@@ -6,7 +6,8 @@ import {
   View,
   Navigator,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
 
 import Calculator from './calculator.js'
@@ -16,11 +17,13 @@ export default class PowerRanger extends Component {
   renderScene(route, navigator) {
     switch (route.id) {
       case 'CalculatorPage':
-        return <Calculator navigator={navigator} />
-        break;
+        return (
+          <Calculator navigator={navigator} />
+        );
       case 'SettingPage':
-        return <Settings navigator={navigator} />
-        break;
+        return (
+          <Settings navigator={navigator} />
+        );
       default:
     }
   }
@@ -30,45 +33,47 @@ export default class PowerRanger extends Component {
   }
 
   render(){
+    const navigationBar = (
+      <Navigator.NavigationBar
+        routeMapper={{
+          LeftButton: (route, navigator, index, navState) =>{
+            return
+          },
+          RightButton: (route, navigator, index, navState) => {
+            if(route.id != 'CalculatorPage'){
+              return (
+                <TouchableOpacity style={stylesCSS.tabbarHeadr} onPress={() => navigator.pop()}>
+                  <Text>Save</Text>
+                </TouchableOpacity>
+              );
+            }else{
+              return (
+                <TouchableOpacity style={stylesCSS.tabbarHeadr} onPress={() => navigator.push({id: 'SettingPage'})}>
+                  <Text style={stylesCSS.headerFontSize}>Setting</Text>
+                </TouchableOpacity>
+              );
+            }
+          },
+          Title: (route, navigator, index, navState) => {
+            return;
+          },
+        }} />
+    )
+
     return (
       <Navigator
-          initialRoute={{id: 'CalculatorPage'}}
-          renderScene={this.renderScene.bind(this)}
-          configureScene={(route) => {
-            if (route.sceneConfig) {
-              return route.sceneConfig;
-            }
-            return Navigator.SceneConfigs.FloatFromRight;
-          }}
-          navigationBar={
-            <Navigator.NavigationBar
-              routeMapper={{
-                LeftButton: (route, navigator, index, navState) =>{
-                  return
-                },
-                RightButton: (route, navigator, index, navState) => {
-                  if(route.id != 'CalculatorPage'){
-                    return (
-                      <TouchableOpacity style={stylesCSS.tabbarHeadr} onPress={() => navigator.pop()}>
-                        <Text>Save</Text>
-                      </TouchableOpacity>
-                    );
-                  }else{
-                    return (
-                      <TouchableOpacity style={stylesCSS.tabbarHeadr} onPress={() => navigator.push({id: 'SettingPage'})}>
-                        <Text style={stylesCSS.headerFontSize}>Setting</Text>
-                      </TouchableOpacity>
-                    );
-                  }
-                },
-                Title: (route, navigator, index, navState) => {
-                  return;
-                },
-              }}
-            />
+        initialRoute={{id: 'CalculatorPage'}}
+        renderScene={this.renderScene.bind(this)}
+        configureScene={(route) => {
+          if (route.sceneConfig) {
+            return route.sceneConfig;
           }
-          configureScene={this.configureScene.bind(this)}
-         />
+          return Navigator.SceneConfigs.FloatFromRight;
+        }}
+        navigationBar={navigationBar}
+        configureScene={this.configureScene.bind(this)}
+        style={{paddingTop:20}}
+      />
     );
   }
 }
