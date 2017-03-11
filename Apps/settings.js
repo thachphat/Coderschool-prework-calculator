@@ -8,16 +8,20 @@ import {
   AsyncStorage
 } from 'react-native';
 
+import SegmentedControlTab from 'react-native-segmented-control-tab';
+
 export default class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sceneTransition: 0
+      sceneTransition: 0,
+      segmentSelectedIndex : 0
     };
   }
 
   componentDidMount(){
     this.getSceneTransition();
+    this.getSegmentSelectedIndex();
   }
 
   setSelectSceneTransition(scene) {
@@ -55,6 +59,40 @@ export default class Settings extends Component {
     }
   }
 
+  segmentValues() {
+    return ['10%', '15%', '50%'];
+  }
+
+  handleSegmentChange(index) {
+    this.setState({
+      segmentSelectedIndex : index
+    })
+    this.setSegmentSelectedIndex(index)
+  }
+
+  async setSegmentSelectedIndex(index){
+    try{
+      await AsyncStorage.setItem('SEGMENT_SELECTED_INDEX', index.toString());
+      this.setState({
+        segmentSelectedIndex : index
+      })
+    }catch(error){
+       console.log("Hmm, something when wrong when set data..." + error);
+    }
+  }
+
+  async getSegmentSelectedIndex(){
+    try{
+      let index = await AsyncStorage.getItem("SEGMENT_SELECTED_INDEX");
+      index = parseInt(index);
+      this.setState({
+        segmentSelectedIndex : index
+      });
+    }catch(error){
+      console.log("Hmm, something when wrong when get data..." + error);
+    }
+  }
+
   render() {
     return(
       <View style={{marginTop:50,padding:10}}>
@@ -71,6 +109,15 @@ export default class Settings extends Component {
             <Picker.Item label="HorizontalSwipeJump" value="HorizontalSwipeJump" />
             <Picker.Item label="HorizontalSwipeJumpFromRight" value="HorizontalSwipeJumpFromRight" />
           </Picker>
+        </View>
+
+        <View>
+          <Text style={{fontSize:25}}>Default Tip Percentage</Text>
+          <SegmentedControlTab
+            values={this.segmentValues()}
+            selectedIndex={this.state.segmentSelectedIndex}
+            onTabPress= {index => this.handleSegmentChange(index)}
+          />
         </View>
       </View>
     )

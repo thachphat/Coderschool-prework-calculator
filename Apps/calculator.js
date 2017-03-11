@@ -21,6 +21,22 @@ export default class Cal extends Component {
     }
   }
 
+  componentDidMount() {
+    this.getSegmentSelectedIndex()
+  }
+
+  async getSegmentSelectedIndex(){
+    try{
+      let index = await AsyncStorage.getItem("SEGMENT_SELECTED_INDEX");
+      index = parseInt(index);
+      this.setState({
+        segmentSelectedIndex : index
+      });
+    }catch(error){
+      console.log("Hmm, something when wrong when get data..." + error);
+    }
+  }
+
   handleSegmentChange(index) {
     this.setState({
       segmentSelectedIndex : index
@@ -78,6 +94,7 @@ export default class Cal extends Component {
         <View>
           <SegmentedControlTab
             values={this.segmentValues()}
+            selected={this.state.segmentSelectedIndex}
             onTabPress= {index => this.handleSegmentChange(index)}
           />
         </View>

@@ -83,7 +83,6 @@ export default class PowerRanger extends Component {
 
   configureScene(route, routeStack) {
     this.getSceneTransition();
-    console.log(this.state.sceneTransition);
     return this.state.sceneTransition;
   }
 
