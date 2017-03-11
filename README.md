@@ -10,7 +10,6 @@ Time spent: **25** hours spent in total
 
 ## Usage
 
-Write steps to run your project on locally
 **Install**
 ```
 npm install
@@ -34,7 +33,7 @@ The following **optional** features are implemented:
 * [x] UI animations
 * [ ] Settings page to change the default tip percentage.
 * [ ] Using locale-specific currency and currency thousands separators.
-* [ ] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
+* [x] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
 
 The following **additional** features are implemented:
 

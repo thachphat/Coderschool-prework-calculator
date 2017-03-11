@@ -57,7 +57,7 @@ export default class Cal extends Component {
     return(
       <View style={{marginTop:50}}>
         <View>
-          <Text>Tip Calculator</Text>
+          <Text style={{fontSize:25, fontWeight: 'bold', textAlign: 'center'}}>Tip Calculator</Text>
         </View>
 
         <View>
@@ -66,6 +66,8 @@ export default class Cal extends Component {
             onChangeText={(billAmount) => this.handleBillAmountChange(billAmount)}
             keyboardType='numeric'
             maxLength={10}
+            style={{borderColor: 'black', borderWidth: 2, height: 50}}
+            autoFocus={true}
           />
         </View>
 
